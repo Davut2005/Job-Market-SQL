@@ -48,3 +48,18 @@ CREATE TABLE reviews (
     review VARCHAR(255),
     review_date DATE DEFAULT CURRENT_DATE
 );
+
+CREATE TABLE deliveries (
+    delivery_id SERIAL PRIMARY KEY,
+    order_id INT UNIQUE NOT NULL,
+    shipping_address VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    shipping_date DATE DEFAULT CURRENT_DATE,
+    delivery_date DATE,
+    delivery_status VARCHAR(50),
+    CONSTRAINT fk_deliveries_orders
+        FOREIGN KEY (order_id)
+        REFERENCES orders(order_id)
+        ON DELETE CASCADE
+);

@@ -93,3 +93,20 @@ INSERT INTO reviews (user_id, product_id, rating, review) VALUES
 (8, 9, 5, 'Amazing car'),
 (9, 2, 4, 'Well explained'),
 (10, 10, 3, 'Good but pricey');
+
+
+
+INSERT INTO deliveries
+(order_id, shipping_address, city, country, delivery_date, delivery_status)
+VALUES
+(1, '1 Infinite Loop', 'Cupertino', 'USA', CURRENT_DATE + INTERVAL '5 days', 'Delivered'),
+(2, '2788 San Tomas Expressway', 'Santa Clara', 'USA', CURRENT_DATE + INTERVAL '6 days', 'Shipped'),
+(3, '1600 Amphitheatre Parkway', 'Mountain View', 'USA', NULL, 'Processing'),
+(4, '350 Fifth Avenue', 'New York', 'USA', CURRENT_DATE + INTERVAL '4 days', 'Delivered'),
+(5, '1 Hacker Way', 'Menlo Park', 'USA', NULL, 'Processing'),
+(6, 'One Microsoft Way', 'Redmond', 'USA', CURRENT_DATE + INTERVAL '3 days', 'Delivered'),
+(7, '410 Terry Ave', 'Seattle', 'USA', CURRENT_DATE + INTERVAL '7 days', 'Shipped'),
+(8, '345 Spear Street', 'San Francisco', 'USA', NULL, 'Pending'),
+(9, '111 8th Avenue', 'New York', 'USA', CURRENT_DATE + INTERVAL '5 days', 'Delivered'),
+(10, '1355 Market Street', 'San Francisco', 'USA', CURRENT_DATE + INTERVAL '6 days', 'Shipped');
+

@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS orders CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
+DROP TABLE IF EXISTS deliveries CASCADE;
 
 
 CREATE TABLE users (
@@ -57,6 +57,21 @@ CREATE TABLE reviews (
     rating INT CHECK (rating BETWEEN 1 AND 5),
     review VARCHAR(255),
     review_date DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE deliveries (
+    delivery_id SERIAL PRIMARY KEY,
+    order_id INT UNIQUE NOT NULL,
+    shipping_address VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    shipping_date DATE DEFAULT CURRENT_DATE,
+    delivery_date DATE,
+    delivery_status VARCHAR(50),
+    CONSTRAINT fk_deliveries_orders
+        FOREIGN KEY (order_id)
+        REFERENCES orders(order_id)
+        ON DELETE CASCADE
 );
 
 
@@ -156,6 +171,22 @@ INSERT INTO reviews (user_id, product_id, rating, review) VALUES
 (8, 9, 5, 'Amazing car'),
 (9, 2, 4, 'Well explained'),
 (10, 10, 3, 'Good but pricey');
+
+
+INSERT INTO deliveries
+(order_id, shipping_address, city, country, delivery_date, delivery_status)
+VALUES
+(1, '1 Infinite Loop', 'Cupertino', 'USA', CURRENT_DATE + INTERVAL '5 days', 'Delivered'),
+(2, '2788 San Tomas Expressway', 'Santa Clara', 'USA', CURRENT_DATE + INTERVAL '6 days', 'Shipped'),
+(3, '1600 Amphitheatre Parkway', 'Mountain View', 'USA', NULL, 'Processing'),
+(4, '350 Fifth Avenue', 'New York', 'USA', CURRENT_DATE + INTERVAL '4 days', 'Delivered'),
+(5, '1 Hacker Way', 'Menlo Park', 'USA', NULL, 'Processing'),
+(6, 'One Microsoft Way', 'Redmond', 'USA', CURRENT_DATE + INTERVAL '3 days', 'Delivered'),
+(7, '410 Terry Ave', 'Seattle', 'USA', CURRENT_DATE + INTERVAL '7 days', 'Shipped'),
+(8, '345 Spear Street', 'San Francisco', 'USA', NULL, 'Pending'),
+(9, '111 8th Avenue', 'New York', 'USA', CURRENT_DATE + INTERVAL '5 days', 'Delivered'),
+(10, '1355 Market Street', 'San Francisco', 'USA', CURRENT_DATE + INTERVAL '6 days', 'Shipped');
+
 
 
 CREATE VIEW user_orders_view AS
